@@ -26,6 +26,15 @@ jobs:
       run: dotnet build --no-restore -c Release
     - name: Test
       run: dotnet test --no-build --verbosity normal -c Release
+
+    - name: List Contents of bin
+      run: |
+        cd src/CityInfo.API/bin/
+        ls
+    - name: List Contents of Release
+      run: |
+        cd src/CityInfo.API/bin/Release/
+        ls
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
       with:
