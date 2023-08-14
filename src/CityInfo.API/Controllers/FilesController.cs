@@ -12,10 +12,13 @@ namespace CityInfo.API.Controllers
     {
 
         private readonly FileExtensionContentTypeProvider _fileExtensionContentTypeProvider;
+        private readonly IConfiguration configuration;
 
-        public FilesController(FileExtensionContentTypeProvider fileExtensionContentTypeProvider)
+        public FilesController(FileExtensionContentTypeProvider fileExtensionContentTypeProvider,
+            IConfiguration configuration)
         {
             _fileExtensionContentTypeProvider = fileExtensionContentTypeProvider;
+            this.configuration = configuration;
         }
 
         [HttpGet("{fileId}")]
@@ -43,6 +46,16 @@ namespace CityInfo.API.Controllers
 
             }
 
+        }
+
+        /// <summary>
+        /// Return mail to address from app settings
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("/mailtoaddress")]
+        public ActionResult<string> GetMailserver()
+        {
+            return configuration["mailSettings:mailToAddress"]!;
         }
     }
 }
