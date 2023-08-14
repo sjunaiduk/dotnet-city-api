@@ -25,11 +25,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore -c Release
     - name: Test
-      run: dotnet test --no-build --verbosity normal
-    - name: Debug - Print Directory of bin
-      run: pwd
-   
-
+      run: dotnet test --no-build --verbosity normal -c Release
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
       with:
