@@ -28,7 +28,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Debug - Print Directory of bin
       run: pwd
-      working-directory: src/CityInfo.API/bin/
+   
 
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
