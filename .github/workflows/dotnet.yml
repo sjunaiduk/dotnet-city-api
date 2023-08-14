@@ -29,13 +29,13 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
     - name: Publish
-      run: dotnet publish --configuration Release -r linux-x64
+      run: dotnet publish --no-restore --configuration Release
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: build-artifacts
         path: |
-           src/CityInfo.API/bin/Release/net6.0/linux-x64/publish
+           src/CityInfo.API/bin/Release/net6.0/publish
   deploy:
     needs: build  
     runs-on: ubuntu-latest
