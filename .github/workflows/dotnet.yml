@@ -29,13 +29,13 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
     - name: Publish
-      run: dotnet publish --no-restore --configuration Release --property PublishDir=${{env.DOTNET_ROOT}}"${{env.AZURE_WEBAPP_PACKAGE_PATH}}"
+      run: dotnet publish --no-restore --configuration Release --property PublishDir=${{env.DOTNET_ROOT}}${{env.AZURE_WEBAPP_PACKAGE_PATH}}
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: build-artifacts
         path: |
-           "${{env.AZURE_WEBAPP_PACKAGE_PATH}}"
+           ".${{env.AZURE_WEBAPP_PACKAGE_PATH}}"
   deploy:
     needs: build  
     runs-on: ubuntu-latest
@@ -49,4 +49,4 @@ jobs:
       with:
         app-name: ${{env.AZURE_WEBAPP_NAME}}
         publish-profile: ${{secrets.AZURE_PUBLISH_PROFILE_CITYINFOAPI}}
-        package: "${{env.AZURE_WEBAPP_PACKAGE_PATH}}"
+        package: ".${{env.AZURE_WEBAPP_PACKAGE_PATH}}"
