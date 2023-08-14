@@ -35,6 +35,10 @@ jobs:
       run: |
         cd src/CityInfo.API/bin/Release/
         ls
+    - name: List Contents of net6
+      run: |
+        cd src/CityInfo.API/bin/Release/net6.0
+        ls
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
       with:
