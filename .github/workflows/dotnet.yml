@@ -50,4 +50,3 @@ jobs:
         app-name: ${{env.AZURE_WEBAPP_NAME}}
         publish-profile: ${{secrets.AZURE_PUBLISH_PROFILE_CITYINFOAPI}}
         package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
-        startup-command: 'dotnet CityInfo.API.dll'
