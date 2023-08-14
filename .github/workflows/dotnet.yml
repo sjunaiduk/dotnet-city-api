@@ -10,7 +10,7 @@ on:
     branches: [ "main" ]
 env:
   AZURE_WEBAPP_NAME: cityapi
-  AZURE_WEBAPP_PACKAGE_PATH: "."
+  AZURE_WEBAPP_PACKAGE_PATH: "./publish"
 jobs:
   build:
 
@@ -28,25 +28,14 @@ jobs:
       run: dotnet build --no-restore -c Release
     - name: Test
       run: dotnet test --no-build --verbosity normal -c Release
-
-    - name: List Contents of bin
-      run: |
-        cd src/CityInfo.API/bin/
-        ls
-    - name: List Contents of Release
-      run: |
-        cd src/CityInfo.API/bin/Release/
-        ls
-    - name: List Contents of net6
-      run: |
-        cd src/CityInfo.API/bin/Release/net6.0
-        ls
+    - name: Publish
+      run: dotnet publish --no-restore -c Release -o "${{env.AZURE_WEBAPP_PACKAGE_PATH}}"
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: build-artifacts
         path: |
-           src/CityInfo.API/bin/Release/net6.0/*.dll
+           "${{env.AZURE_WEBAPP_PACKAGE_PATH}}"
   deploy:
     needs: build  
     runs-on: ubuntu-latest
