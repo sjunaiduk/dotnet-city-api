@@ -48,6 +48,7 @@ jobs:
         path: |
            src/CityInfo.API/bin/Release/net6.0/*.dll
   deploy:
+    needs: build  
     runs-on: ubuntu-latest
     steps:
     - name: Download a single artifact
