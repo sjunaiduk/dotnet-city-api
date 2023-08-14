@@ -35,7 +35,7 @@ jobs:
       with:
         name: build-artifacts
         path: |
-           src/CityInfo.API/bin/Release/net6.0/*.dll
+           src/CityInfo.API/bin/Release/net6.0
   deploy:
     needs: build  
     runs-on: ubuntu-latest
