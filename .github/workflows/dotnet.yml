@@ -29,7 +29,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal --configuration Release
     - name: Publish
-      run: dotnet publish --no-restore --configuration Release --property PublishDir=${{env.DOTNET_ROOT}}"${{env.env.AZURE_WEBAPP_PACKAGE_PATH}}"
+      run: dotnet publish --no-restore --configuration Release --property PublishDir=${{env.DOTNET_ROOT}}"${{env.AZURE_WEBAPP_PACKAGE_PATH}}"
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
       with:
