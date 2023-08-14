@@ -27,9 +27,9 @@ jobs:
     - name: Build
       run: dotnet build --no-restore -c Release
     - name: Test
-      run: dotnet test --no-build --verbosity normal -c Release
+      run: dotnet test --no-build --verbosity normal --configuration Release
     - name: Publish
-      run: dotnet publish --no-restore -c Release -o "${{env.AZURE_WEBAPP_PACKAGE_PATH}}"
+      run: dotnet publish --no-restore --configuration Release --output "${{env.AZURE_WEBAPP_PACKAGE_PATH}}"
     - name: Store build artifacts
       uses: actions/upload-artifact@v3
       with:
