@@ -31,4 +31,4 @@ jobs:
       with:
         name: build-artifacts
         path: |
-          src/CityInfo.API/bin/Release/net6.0/
+           ./dotnet-city-api/src/CityInfo.API/bin/Release/net6.0/
