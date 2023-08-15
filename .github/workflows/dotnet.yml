@@ -88,6 +88,6 @@ jobs:
     - name: Deploying to azure (production)
       uses: azure/webapps-deploy@v2
       with:
-        app-name: ${{env.AZURE_WEBAPP_NAME}}
+        app-name: cityapiprod
         publish-profile: ${{secrets.AZURE_PUBLISH_PROFILE_CITYINFOAPI_PROD}}
         package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
