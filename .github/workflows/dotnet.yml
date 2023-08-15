@@ -38,12 +38,22 @@ jobs:
            src/CityInfo.API/bin/Release/net6.0/publish
   deploy:
     needs: build  
+    environment: stage
     runs-on: ubuntu-latest
     steps:
     - name: Download a single artifact
       uses: actions/download-artifact@v3
       with:
         name: build-artifacts
+
+    # replacing tokens
+    - uses: cschleiden/replace-tokens@v1.2
+      with:
+        files: '["**/*.json"]'
+      env:
+        MAILTOADDRESS: ${{vars.MAILTOADDRESS}}
+        
+        
     - name: Deploying to azure
       uses: azure/webapps-deploy@v2
       with:
