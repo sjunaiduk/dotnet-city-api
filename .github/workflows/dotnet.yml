@@ -1,93 +1,93 @@
-# This workflow will build a .NET project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+# # This workflow will build a .NET project
+# # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: citywebapi-CICD
+# name: citywebapi-CICD
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-env:
-  AZURE_WEBAPP_NAME: cityapi
-  AZURE_WEBAPP_PACKAGE_PATH: "."
+# on:
+# #  push:
+#    # branches: [ "main" ]
+# #  pull_request:
+# #    branches: [ "main" ]
+# env:
+#   AZURE_WEBAPP_NAME: cityapi
+#   AZURE_WEBAPP_PACKAGE_PATH: "."
 
 
   
-jobs:
-  build:
+# jobs:
+#   build:
 
-    runs-on: ubuntu-latest
+#     runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore -c Release
-    - name: Test
-      run: dotnet test --no-build --verbosity normal --configuration Release
-    - name: Publish
-      run: dotnet publish --no-restore --configuration Release
-    - name: Store build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: build-artifacts
-        path: |
-           src/CityInfo.API/bin/Release/net6.0/publish
+#     steps:
+#     - uses: actions/checkout@v3
+#     - name: Setup .NET
+#       uses: actions/setup-dotnet@v3
+#       with:
+#         dotnet-version: 6.0.x
+#     - name: Restore dependencies
+#       run: dotnet restore
+#     - name: Build
+#       run: dotnet build --no-restore -c Release
+#     - name: Test
+#       run: dotnet test --no-build --verbosity normal --configuration Release
+#     - name: Publish
+#       run: dotnet publish --no-restore --configuration Release
+#     - name: Store build artifacts
+#       uses: actions/upload-artifact@v3
+#       with:
+#         name: build-artifacts
+#         path: |
+#            src/CityInfo.API/bin/Release/net6.0/publish
 
-  #Deploying to staging environment
-  deploy_stage:
-    needs: build  
-    environment: stage
-    runs-on: ubuntu-latest
-    steps:
-    - name: Download a single artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: build-artifacts
+#   #Deploying to staging environment
+#   deploy_stage:
+#     needs: build  
+#     environment: stage
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Download a single artifact
+#       uses: actions/download-artifact@v3
+#       with:
+#         name: build-artifacts
 
-    # replacing tokens
-    - uses: cschleiden/replace-tokens@v1.2
-      with:
-        files: '["**/*.json"]'
-      env:
-        MAILTOADDRESS: ${{vars.MAILTOADDRESS}}
+#     # replacing tokens
+#     - uses: cschleiden/replace-tokens@v1.2
+#       with:
+#         files: '["**/*.json"]'
+#       env:
+#         MAILTOADDRESS: ${{vars.MAILTOADDRESS}}
         
         
-    - name: Deploying to azure (stage)
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{env.AZURE_WEBAPP_NAME}}
-        publish-profile: ${{secrets.AZURE_PUBLISH_PROFILE_CITYINFOAPI}}
-        package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
+#     - name: Deploying to azure (stage)
+#       uses: azure/webapps-deploy@v2
+#       with:
+#         app-name: ${{env.AZURE_WEBAPP_NAME}}
+#         publish-profile: ${{secrets.AZURE_PUBLISH_PROFILE_CITYINFOAPI}}
+#         package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
 
-  #Deploying to production environment
-  deploy_prod:
-    needs: deploy_stage  
-    environment: prod
-    runs-on: ubuntu-latest
-    steps:
-    - name: Download a single artifact
-      uses: actions/download-artifact@v3
-      with:
-        name: build-artifacts
+#   #Deploying to production environment
+#   deploy_prod:
+#     needs: deploy_stage  
+#     environment: prod
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Download a single artifact
+#       uses: actions/download-artifact@v3
+#       with:
+#         name: build-artifacts
 
-    # replacing tokens
-    - uses: cschleiden/replace-tokens@v1.2
-      with:
-        files: '["**/*.json"]'
-      env:
-        MAILTOADDRESS: ${{vars.MAILTOADDRESS}}
+#     # replacing tokens
+#     - uses: cschleiden/replace-tokens@v1.2
+#       with:
+#         files: '["**/*.json"]'
+#       env:
+#         MAILTOADDRESS: ${{vars.MAILTOADDRESS}}
         
         
-    - name: Deploying to azure (production)
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: cityapiprod
-        publish-profile: ${{secrets.AZURE_PUBLISH_PROFILE_CITYINFOAPI_PROD}}
-        package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
+#     - name: Deploying to azure (production)
+#       uses: azure/webapps-deploy@v2
+#       with:
+#         app-name: cityapiprod
+#         publish-profile: ${{secrets.AZURE_PUBLISH_PROFILE_CITYINFOAPI_PROD}}
+#         package: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}
