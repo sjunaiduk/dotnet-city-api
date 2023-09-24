@@ -37,6 +37,22 @@ jobs:
 
 
         file: src/CityInfo.API/Dockerfile
+    - name: Display Test Results
+      shell: pwsh
+      run: |
+        $id = docker images -q 
+        docker create --name testcontainer $id
+        docker cp testcontainer:/test-results ./test-results
+        docker rm testcontainer
+    - uses: dorny/test-reporter@v1
+      with:
+        artifact: test-results
+        name: UnitTest Results
+        path: '*.trx'
+        reporter: dotnet-trx
+        fail-on-error: 'true'
+
+    
 
 
   deploy:

@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   webapp:
-    image: cityapi
+    image: cityapitesting
     ports:
       - 80:80
       - 443:443
