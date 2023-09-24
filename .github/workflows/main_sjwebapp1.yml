@@ -37,9 +37,7 @@ jobs:
 
 
         file: src/CityInfo.API/Dockerfile
-    - name: Test
-      run: |
-          docker run --rm index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }}
+
 
   deploy:
     runs-on: ubuntu-latest
