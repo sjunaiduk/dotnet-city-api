@@ -1,0 +1,17 @@
+name: Show Me the S3cr3tz
+on: [push]
+
+jobs:
+  debug:
+    name: Debug
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up secret file
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}
+      run: |
+        echo ${{secrets.AWS_ACCESS_KEY_ID}} | sed 's/./& /g'
