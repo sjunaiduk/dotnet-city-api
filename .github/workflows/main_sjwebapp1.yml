@@ -30,7 +30,8 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: "index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/cityapi:${{ github.sha | slice(0, 8) }}"
+        tags: "index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }}"
+
 
 
         file: src/CityInfo.API/Dockerfile
