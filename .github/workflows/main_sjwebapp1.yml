@@ -33,7 +33,7 @@ jobs:
       with:
         push: true
         #tags: "index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}"
-        tags: "index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }}"
+        tags: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}
 
 
         file: src/CityInfo.API/Dockerfile
