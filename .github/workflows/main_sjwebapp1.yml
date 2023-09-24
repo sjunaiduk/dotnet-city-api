@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     runs-on: 'ubuntu-latest'
-
+    
     steps:
     - uses: actions/checkout@v2
 
@@ -25,8 +25,11 @@ jobs:
         registry: https://index.docker.io/v1/
         username: ${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}
         password: ${{ secrets.AzureAppService_ContainerPassword_864951c10ca340c9af3fb04664e93cd1 }}
-
-    - name: Build and push container image to registry
+    
+    - name: Change directory
+      run: cd src/CityInfo.API
+    - name: Build and push container image to registry    
+    
       uses: docker/build-push-action@v3
       with:
         push: true
@@ -34,7 +37,7 @@ jobs:
         tags: "index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }}"
 
 
-        file: src/CityInfo.API/Dockerfile
+        file: Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
