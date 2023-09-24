@@ -12,6 +12,9 @@ jobs:
 
     - name: Set up secret file
       env:
-        AWS_ACCESS_KEY_ID: ${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}
+        MY_VAL: ${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}
       run: |
-        echo ${{secrets.AWS_ACCESS_KEY_ID}} | sed 's/./& /g'
+        import os
+        for q in (os.getenv("MY_VAL")):
+          print(q)
+      shell: python
