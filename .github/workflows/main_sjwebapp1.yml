@@ -30,8 +30,8 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: "index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}"
-
+        #tags: "index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}"
+        tags: "index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }}"
 
 
         file: src/CityInfo.API/Dockerfile
@@ -51,4 +51,5 @@ jobs:
         app-name: 'sjwebapp1'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_42127056ecd740e8bb16238624f1a870 }}
-        images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}'
+        #images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}'
+        images: 'index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }}'
