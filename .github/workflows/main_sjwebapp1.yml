@@ -26,18 +26,17 @@ jobs:
         username: ${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}
         password: ${{ secrets.AzureAppService_ContainerPassword_864951c10ca340c9af3fb04664e93cd1 }}
     
-    - name: Change directory
-      run: cd src/CityInfo.API
+
     - name: Build and push container image to registry    
     
-      uses: docker/build-push-action@v3
+      uses: docker/build-push-action@v5
       with:
         push: true
         #tags: "index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}"
         tags: "index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }}"
 
 
-        file: Dockerfile
+        file: src/CityInfo.API/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest
