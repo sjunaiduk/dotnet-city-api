@@ -43,7 +43,7 @@ jobs:
         $images = docker images
         echo $images
         $id =  docker images -q --filter "label=type=webapp"
-        docker create --name testcontainer $id
+        docker create --name testcontainer index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }}
         docker cp testcontainer:/test-results ./test-results
         docker rm testcontainer
         ls
