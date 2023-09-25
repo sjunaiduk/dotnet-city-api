@@ -12,7 +12,7 @@ namespace CityInfo.API.Test
         [TestMethod]
         public void FailingTest()
         {
-            Assert.AreEqual(1, 0);
+            Assert.AreEqual(2, 0);
         }
     }
 }
