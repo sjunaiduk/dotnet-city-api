@@ -16,6 +16,8 @@ permissions:
 
 jobs:
   build:
+    env:
+       imagePath: ${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}
     runs-on: 'ubuntu-latest'
     
     steps:
@@ -35,8 +37,8 @@ jobs:
     - name: Build and push container image to registry    
       shell: pwsh
       run: |        
-        docker build . -t ${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }} -f src/CityInfo.API/Dockerfile
-        docker push ${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}
+        docker build . -t  ${{env.imagePath}} -f src/CityInfo.API/Dockerfile
+        docker push ${{env.imagePath}}
 
       #uses: docker/build-push-action@v5
       #  push: true
