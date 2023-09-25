@@ -40,8 +40,8 @@ jobs:
     - name: Display Test Results
       shell: pwsh
       run: |
-        $id =  docker images -q --filter "label=type=webapp"
-        docker create --name testcontainer $id
+        $id = docker images -q --filter "label=type=webapp"
+        docker create --name testcontainer index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }}
         docker cp testcontainer:/test-results ./test-results
         docker rm testcontainer
         ls
