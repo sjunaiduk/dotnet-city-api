@@ -43,7 +43,7 @@ jobs:
         docker images ls -a
         $id = docker images -q 
         docker create --name testcontainer $id
-        docker cp testcontainer:/test-results ./testresults
+        docker cp testcontainer:/test-results/ ./testresults
         docker rm testcontainer
         ls
     - uses: dorny/test-reporter@v1
