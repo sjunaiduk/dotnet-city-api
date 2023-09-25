@@ -17,7 +17,7 @@ permissions:
 jobs:
   build:
     env:
-       imagePath: ${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}
+       imagePath: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}
     runs-on: 'ubuntu-latest'
     
     steps:
@@ -80,5 +80,4 @@ jobs:
         app-name: 'sjwebapp1'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_42127056ecd740e8bb16238624f1a870 }}
-        #images: 'index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}'
         images: 'index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }}'
