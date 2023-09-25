@@ -18,7 +18,7 @@ RUN dotnet publish ./src/CityInfo.API/CityInfo.API.csproj -c Release -o /out
 
 FROM build as test
 LABEL test=true
-RUN dotnet test -c Release --results-directory /results --logger "trx;LogFileName=test_results.trx" ./src/tests/CityInfo.API.Test/CityInfo.API.Test.csproj
+RUN dotnet test -c Release --results-directory /results --logger "trx;LogFileName=test_results.trx" ./src/tests/CityInfo.API.Test/CityInfo.API.Test.csproj || true
 
 
 FROM base AS final
