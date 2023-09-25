@@ -21,8 +21,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
+    #- name: Set up Docker Buildx
+    #  uses: docker/setup-buildx-action@v2
 
     - name: Log in to registry
       uses: docker/login-action@v2
@@ -33,22 +33,27 @@ jobs:
     
 
     - name: Build and push container image to registry    
-    
-      uses: docker/build-push-action@v5
-      with:
-        push: true
-        #tags: "index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}"
-        tags: index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }}
+      shell: pwsh
+      run: |
+        $image = index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}
+        docker build -t $image .
+        docker push $image
+
+      #uses: docker/build-push-action@v5
+      #with:
+      #  push: true
+      #  #tags: "index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}"
+      #  tags: index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }}
+      #  file: src/CityInfo.API/Dockerfile
 
 
-        file: src/CityInfo.API/Dockerfile
     - name: Display Test Results
       shell: pwsh
       run: |
         $images = docker images
         echo $images
         $id =  docker images -q --filter "label=type=webapp"
-        docker create --name testcontainer index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }}
+        docker create --name testcontainer $id
         docker cp testcontainer:/test-results ./test-results
         docker rm testcontainer
         ls
