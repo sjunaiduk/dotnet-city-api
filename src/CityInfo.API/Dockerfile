@@ -22,6 +22,7 @@ RUN dotnet test -c Release --results-directory /results --logger "trx;LogFileNam
 
 
 FROM base AS final
+LABEL type=webapp
 WORKDIR /app
 COPY --from=build /out .
 COPY --from=test /results /test-results/

@@ -40,16 +40,15 @@ jobs:
     - name: Display Test Results
       shell: pwsh
       run: |
-        docker images ls -a
-        $id = docker images -q 
+        $id =  docker images -q --filter "label=type=webapp"
         docker create --name testcontainer $id
-        docker cp testcontainer:/test-results/test_results.trx ./test_results.trx
+        docker cp testcontainer:/test-results ./test-results
         docker rm testcontainer
         ls
     - uses: dorny/test-reporter@v1
       with:
         name: UnitTest Results
-        path: './test_results.trx'
+        path: './test-results/test_results.trx'
         reporter: dotnet-trx
         fail-on-error: 'true'
 
