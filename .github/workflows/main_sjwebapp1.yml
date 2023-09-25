@@ -34,10 +34,9 @@ jobs:
 
     - name: Build and push container image to registry    
       shell: pwsh
-      run: |
-        $image = index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}
-        docker build -t $image .
-        docker push $image
+      run: |        
+        docker build -t index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }} . 
+        docker push index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}
 
       #uses: docker/build-push-action@v5
       #with:
