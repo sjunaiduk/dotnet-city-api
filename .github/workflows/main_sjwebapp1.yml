@@ -46,12 +46,12 @@ jobs:
         docker cp testcontainer:/test-results ./test-results
         docker rm testcontainer
         ls
-    - uses: dorny/test-reporter@v1
-      with:
-        name: UnitTest Results
-        path: './test-results/*.trx'
-        reporter: dotnet-trx
-        fail-on-error: 'true'
+    #- uses: dorny/test-reporter@v1
+    #  with:
+    #    name: UnitTest Results
+    #    path: './test-results/*.trx'
+    #    reporter: dotnet-trx
+    #    fail-on-error: 'true'
 
     
 

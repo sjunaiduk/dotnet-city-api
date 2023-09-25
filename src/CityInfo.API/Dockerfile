@@ -24,5 +24,5 @@ RUN dotnet test -c Release --results-directory /results --logger "trx;LogFileNam
 FROM base AS final
 WORKDIR /app
 COPY --from=build /out .
-COPY --from=test /results /test-results
+COPY --from=test /results /test-results/
 ENTRYPOINT ["dotnet", "CityInfo.API.dll"]
