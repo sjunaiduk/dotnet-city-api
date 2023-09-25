@@ -35,8 +35,8 @@ jobs:
     - name: Build and push container image to registry    
       shell: pwsh
       run: |        
-        docker build . -t syedjunaiddocker/dotnetcityapi:${{ github.sha }} -f src/CityInfo.API/Dockerfile
-        docker push syedjunaiddocker/dotnetcityapi:${{ github.sha }}
+        docker build . -t ${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }} -f src/CityInfo.API/Dockerfile
+        docker push ${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}
 
       #uses: docker/build-push-action@v5
       #  push: true
@@ -49,13 +49,10 @@ jobs:
     - name: Display Test Results
       shell: pwsh
       run: |
-        $images = docker images
-        echo $images
         $id =  docker images -q --filter "label=type=webapp"
         docker create --name testcontainer $id
         docker cp testcontainer:/test-results ./test-results
         docker rm testcontainer
-        ls
     - uses: dorny/test-reporter@v1
       with:
         name: UnitTest Results
