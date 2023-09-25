@@ -35,8 +35,8 @@ jobs:
     - name: Build and push container image to registry    
       shell: pwsh
       run: |        
-        docker build -t index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }} . 
-        docker push index.docker.io/syedjunaiddocker/dotnetcityapi:${{ github.sha }}
+        docker build -t syedjunaiddocker/dotnetcityapi:${{ github.sha }} . 
+        docker push syedjunaiddocker/dotnetcityapi:${{ github.sha }}
 
       #uses: docker/build-push-action@v5
       #  push: true
