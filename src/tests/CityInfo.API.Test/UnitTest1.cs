@@ -9,10 +9,10 @@ namespace CityInfo.API.Test
             Assert.AreEqual(0, 0);
         }
 
-                [TestMethod]
-        public void FailingTest()
-        {
-            Assert.AreEqual(1, 0);
-        }
+        //        [TestMethod]
+        //public void FailingTest()
+        //{
+        //    Assert.AreEqual(1, 0);
+        //}
     }
 }
