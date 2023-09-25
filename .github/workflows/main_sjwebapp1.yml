@@ -19,6 +19,7 @@ permissions:
 
 jobs:
   build:
+    name: Build docker image, run tests and push to Docker hub registry
     env:
        imagePath: index.docker.io/${{ secrets.AzureAppService_ContainerUsername_6e8ece5a406b417fb5048a499402751c }}/dotnetcityapi:${{ github.sha }}
     runs-on: 'ubuntu-latest'
@@ -63,7 +64,7 @@ jobs:
         name: UnitTest Results
         path: './test-results/test_results.trx'
         reporter: dotnet-trx
-        fail-on-error: 'true'
+        fail-on-error: 'true' # will fail this job, i can also run exit 0 exit 1 to make things fail.
 
     
 
