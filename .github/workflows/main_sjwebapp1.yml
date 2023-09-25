@@ -43,14 +43,13 @@ jobs:
         docker images ls -a
         $id = docker images -q 
         docker create --name testcontainer $id
-        docker exec testcontainer ls
-        docker cp testcontainer:/test-results ./test-results
+        docker cp testcontainer:/test-results/test_results.trx ./test_results.trx
         docker rm testcontainer
         ls
     - uses: dorny/test-reporter@v1
       with:
         name: UnitTest Results
-        path: './testresults/*.trx'
+        path: './test_results.trx'
         reporter: dotnet-trx
         fail-on-error: 'true'
 
