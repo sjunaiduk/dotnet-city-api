@@ -10,20 +10,20 @@ namespace CityInfo.API.Controllers
 
 
     [ApiController]
-    [Authorize]
+  //  [Authorize]
     [ApiVersion("1.0")]
     [Route("/api/v{version:apiVersion}/cities")]
     public class CitiesController : ControllerBase
     {
         private readonly ICityInfoRepository _cityInfoRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger logger;
+        private readonly ILogger<CitiesController> _logger;
         const int maxCitiesPageSize = 20;
         public CitiesController(ICityInfoRepository cityInfoRepository,
             IMapper mapper,
-            ILogger logger)
+            ILogger<CitiesController> logger)
         {
-            logger = logger;
+            _logger = logger;
             this._cityInfoRepository = cityInfoRepository ?? 
                 throw new ArgumentNullException(nameof(cityInfoRepository));
             this._mapper = mapper;
@@ -47,7 +47,7 @@ namespace CityInfo.API.Controllers
                 pageSize = maxCitiesPageSize;
             }
 
-            logger.LogInformation("Getting all cities");
+            _logger.LogInformation("Getting all cities");
             System.Diagnostics.Trace.TraceError("Something bad happened!");
             var (cityEntities, pageMetadata) = await _cityInfoRepository.GetCitiesAsync(name, searchQuery, pageNumber, pageSize);
 
