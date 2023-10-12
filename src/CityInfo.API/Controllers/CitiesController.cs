@@ -17,10 +17,13 @@ namespace CityInfo.API.Controllers
     {
         private readonly ICityInfoRepository _cityInfoRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger logger;
         const int maxCitiesPageSize = 20;
         public CitiesController(ICityInfoRepository cityInfoRepository,
-            IMapper mapper)
+            IMapper mapper,
+            ILogger logger)
         {
+            logger = logger;
             this._cityInfoRepository = cityInfoRepository ?? 
                 throw new ArgumentNullException(nameof(cityInfoRepository));
             this._mapper = mapper;
@@ -44,6 +47,8 @@ namespace CityInfo.API.Controllers
                 pageSize = maxCitiesPageSize;
             }
 
+            logger.LogInformation("Getting all cities");
+            System.Diagnostics.Trace.TraceError("Something bad happened!");
             var (cityEntities, pageMetadata) = await _cityInfoRepository.GetCitiesAsync(name, searchQuery, pageNumber, pageSize);
 
             Response.Headers.Add("X-Pagination", 
